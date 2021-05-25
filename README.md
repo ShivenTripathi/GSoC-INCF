@@ -10,8 +10,14 @@ To Do:
     - Codes from email from Prof. Joost downloaded
 
 - After Meeting on 25/05/2021:
-    1. Read through papers
+    1. Read through papers:
+        * [Stimulus-dependent Maximum Entropy Models of Neural Population Codes](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002922) 
+
+        * [Weak pairwise correlations imply strongly correlated network states in a neural population](https://www.nature.com/articles/nature04701)
+
+        * [The simplest maximum entropy model for collective behavior in a neural network](https://iopscience.iop.org/article/10.1088/1742-5468/2013/03/P03011/meta)
+
     2. Look how Maximum Entropy model is fit from existing code
-    3. devise strategies for validation for different models
+    3. Devise strategies for validation for different models
     4. think of how this would translate to code
     5. discuss design choices with Chris
