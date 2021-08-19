@@ -68,7 +68,7 @@ MIs, varMIs = net.get_MI_estimates(dts)
 
 # To perform MLE with the explicitMLE algorithm:
 #net = ModifiedHopfieldNet(in_directory='toy_data/', out_directory='new_data/', exp_type='J', splits=2, data_type='new',
-                          stim_shift=5)
+                        #   stim_shift=5)
 #thetas, Js = net.run_explicitMLE()
 # Note that the experiment_type paramter does not matter if you only want to run the MLE algorithm on the data in
 # your in_directory
