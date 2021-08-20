@@ -106,7 +106,26 @@ Several existing codebases relevant to analysis of spike train data have been co
 ### 2. [hdnet_contrib](https://github.com/ShivenTripathi/hdnet_contrib)
 1. [CDM Entropy](https://github.com/ShivenTripathi/hdnet_contrib/blob/main/examples/PyCDMentropy/demoCDME.ipynb): interface with HDNet
     * CDM Entropy
+        ```python
+        cdme = CDMentropy(spikes=true_spikes)
+        e = cdme.entropyCDM(trial=0,time_start=0, neuron_start=0, time_end=500, neuron_end=50)
+        print("Entropy",e)
+
+        Entropy 5.8832817305175915
+        ```
     * CDM Entropy Mutual Information predictive estimate
+        ```python
+        cdme = CDMentropy(spikes=true_spikes)
+        I = cdme.mutualInformationWindowed(trial=0, time_start=0, neuron_start=0, stimulus_start=60, tau=5, time_end=5000, 
+            neuron_end=30, stimulus_end=61)
+        print("MI",I)
+
+        MI 0.0029785186396491525
+        ```
+
+        Plot of Mutual Information estimate vs Time Shift on varying total time steps
+
+    <img src="assets/mi_shift.svg" width="500" height="400" />
 ---
 ## References
 * Archer E, Park I, & Pillow JW (2013). Bayesian entropy estimation for binary spike train data using parametric prior knowledge. Advances in Neural Information Processing Systems 26, 1700-1708
