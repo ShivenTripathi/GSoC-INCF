@@ -21,35 +21,53 @@ To guide behaviour, it has been proposed that neurons eventually learn to predic
 
 The project started with a literature review of the current models used to understand spike train data. Before any analysis can be conducted, fitted models need to be validated and therefore prevalent validations in the literature were implemented as part of the hdnet codebase. 
 
-After this work, the project was extended to adding more utilities to hdnet codebase like dataloaders, samplers and calculation of other statistics which are useful for spiketrain data. 
+After this work, the project was extended to adding more utilities to hdnet codebase like dataloaders, samplers and calculation of other statistics which are useful for spiketrain data. HDNet's existing sampler for Ising Models used Gibbs sampling which was found to not work for spike train data with high number of neurons. The added Metropolis Sampler has been tested to work with higher dimensional data and generates samples much faster than Gibbs Sampler. Also, to capture higher order interaction effects between neurons, the N<sup>th</sup> Order interaction calculation was added which can be used to calculate upto 3<sup>rd</sup> order correlations. 
 
-Several existing codebases relevant to analysis of spike train data have been coded in MATLAB which makes a direct use with HDNet challenging. Through this project an extension to HDNet, HDNet Contrib was developed which can provide an interface to these MATLAB codebases. An example of such enhanced functionality is available in the form of Py-CDM Entropy, which builds a wrapper over the existing MATLAB codebase of CDM Entropy.
+Several existing codebases relevant to analysis of spike train data have been coded in MATLAB which makes a direct use with HDNet challenging. Through this project an extension to HDNet, HDNet Contrib was developed which can provide an interface to these MATLAB codebases. An example of such enhanced functionality is available in the form of Py-CDM Entropy, which builds a wrapper over the existing MATLAB codebase of CDM Entropy. Also an extension over CDM entropy is provided in HDNet Contrib which can be used to calculate the predictive information of a neurons with mutual information estimates.
 
 ---
 ## Source Codes
 
 ### 1. [hdnet](https://github.com/ShivenTripathi/hdnet)
-1. [Validation](https://github.com/ShivenTripathi/hdnet/blob/master/hdnet/spikes_model_validation.py)
-    * Objects for validation of spike train data
+1. [Validation : spikes_model_validation.py](https://github.com/ShivenTripathi/hdnet/blob/master/hdnet/spikes_model_validation.py) 
+    * New module of spikes_model_validation.py written for hdnet
+    * Objects for validation of spike train data present in the module
     * Implemented: 
-        * Log Probability Ratio
-        * Most Frequent Common Code Words
+        * Log Probability Ratio:
+            * Returns dictionary mapping to ratios of log probabilities for codewords in two spike trains
+        * Most Frequent Common Code Words:
+            * Returns list of common code words among most frequent codewords of two spike trains
 
-2. [Spike Train Statistics](https://github.com/ShivenTripathi/hdnet/blob/master/hdnet/spikes.py)
+2. [Spike Train Statistics : spikes.py](https://github.com/ShivenTripathi/hdnet/blob/master/hdnet/spikes.py)
+
+    * Code added as member functions of existing Spikes Object in HDNet
     * Added functions for calculating statistics and information about spike train data
     * Implemented:
-        * Code Word Frequencies
+        * Code Word Frequencies:
+            * This helps in calculating the most frequent code words in a spike train data as a validation
+            * Returns counter object containing the count of the number of times a code word is present in a spike train
         * Normalise Spike Train to Mean 0 and Variance 1
-        * Nth Order Statistics (mean, correlations and so on)
-3. [Sampling](https://github.com/ShivenTripathi/hdnet/blob/master/hdnet/sampling.py)
-    * Added Metropois Sampler for Spike Train data from fitted parameters of a maximum entropy model
-### 2. [hdnet_contrib](https://github.com/ShivenTripathi/hdnet_contrib)
-1. Interface with MATLAB codebases
-    * hdnet_contrib provides an example to interface with MATLAB codebases using HDNet. Python wrappers can be easily built using oct2py, allowing easy access inside python code. The example of Py-CDM Entropy can be used as a sample interface, and many more such additions can be made. All of these interfaces can be installed as a library improving accessibility.
+            * This utility is useful when calculating higher order statistics for spike train data
+        * N<sup>th</sup> Order Statistics (mean, correlations and so on):
+            * This can also be used as a validation metric  
 
-2. [Py-CDM Entropy](https://github.com/ShivenTripathi/hdnet_contrib/blob/main/hdnet_contrib/CDMentropy.py)
-    * A wrapper for the existing MATLAB codebase of CDM Entropy.
-    * Object oriented design encapsulating functions for calculating entropies and mutual information on spiketrain data.
+3. [Sampling : sampling.py](https://github.com/ShivenTripathi/hdnet/blob/master/hdnet/sampling.py)
+    * Existing HDNet Sampler for Maximum Entropy Models used Gibbs sampling 
+    * For validation when fitted parameters are known, Metropolis Sampler can be used to generate a spike train with which validation is performed
+    * Implemented:
+        * Metropolis Sampler for Spike Train data from fitted parameters (Js and Thetas) of a Maximum Entropy model
+        * Number of samples can be set by the user to generate spike train with appropriate time steps
+
+### 2. [hdnet_contrib](https://github.com/ShivenTripathi/hdnet_contrib)
+
+1. Interface with MATLAB codebases
+    * hdnet_contrib provides an example to interface with MATLAB codebases using HDNet. Python wrappers can be easily built using oct2py, allowing easy access inside python code
+    * The example of Py-CDM Entropy can be used as a sample interface, and many more such additions can be made. All of these interfaces can be installed as a library improving accessibility
+
+2. [Py-CDM Entropy : CDMentropy.py](https://github.com/ShivenTripathi/hdnet_contrib/blob/main/hdnet_contrib/CDMentropy.py)
+
+    * A wrapper for the existing MATLAB codebase of CDM Entropy enhanced with methods to caclulate mutual information.
+    * Object oriented design encapsulating functions for calculating entropies and mutual information for windowed time bins on spiketrain data.
 ---
 ## Demos
 
