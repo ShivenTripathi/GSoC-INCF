@@ -51,6 +51,7 @@ disp(['Signal contains ' num2str(length(sig)) ' data points']);
 disp(['Signal contains ' num2str(length(data.Ts)) ' ones']);
 disp(' ');
 disp(['Entropy signal = ' num2str(entropy(sig))])
+save('countArray','count')
 disp(['Entropy binned signal = ' num2str(entropy(count))])
 disp(['Mean signal = ' num2str(mean(sig))])
 disp(['SD signal = ' num2str(std(sig))])
